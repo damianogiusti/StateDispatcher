@@ -99,12 +99,9 @@ internal class StateDispatcherImpl(
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        val screenContainer = activity as? ScreenContainer ?: return
-        screenCreator = screenCreatorFactory.newScreenCreator(screenContainer.containerLayout, screensAndLayouts)
-    }
-
-    override fun onActivityDestroyed(activity: Activity) {
-        screenCreator = null
+        screenCreator = (activity as? ScreenContainer)?.let { container ->
+            screenCreatorFactory.newScreenCreator(container.containerLayout, screensAndLayouts)
+        }
     }
 
     private fun post(state: NavigationState) {
