@@ -103,6 +103,10 @@ internal class StateDispatcherImpl(
         screenCreator = screenCreatorFactory.newScreenCreator(screenContainer.containerLayout, screensAndLayouts)
     }
 
+    override fun onActivityDestroyed(activity: Activity) {
+        screenCreator = null
+    }
+
     private fun post(state: NavigationState) {
         eventsSubject.onNext(state)
     }
